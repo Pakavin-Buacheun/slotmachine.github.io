@@ -56,11 +56,10 @@ function setProperties() {
 }
 
 function setup() {
+    pixelDensity(1)
     parent = document.getElementById('canvas-wrapper')
     canvas = createCanvas(parent.offsetWidth, parent.offsetHeight, WEBGL)
     canvas.parent(parent)
-
-    pixelDensity(1)
 
     setProperties()
     for (let n = 0; n < slot; n++) {
