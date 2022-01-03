@@ -57,6 +57,8 @@ function setProperties() {
 
 function setup() {
     pixelDensity(1)
+    frameRate(60)
+
     parent = document.getElementById('canvas-wrapper')
     canvas = createCanvas(parent.offsetWidth, parent.offsetHeight, WEBGL)
     canvas.parent(parent)
@@ -173,7 +175,6 @@ function windowResized() {
 }
 
 function mousePressed() {
-    print(frameRate())
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
         if (spin.every(i => i === false)) {
             TIME++
