@@ -57,7 +57,6 @@ function setProperties() {
 
 function setup() {
     pixelDensity(1)
-    frameRate(60)
 
     parent = document.getElementById('canvas-wrapper')
     canvas = createCanvas(parent.offsetWidth, parent.offsetHeight, WEBGL)
