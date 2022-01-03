@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="p5.js"></script>
+    <script src="p5.sound.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <title>Slot Machine</title>
+</head>
+
+<body>
+    <div class="container-fluid position-absolute top-50 start-50 translate-middle mt-4">
+        <div class="row justify-content-center">
+            <div class="col d-none d-sm-block"></div>
+            <div class="col-11 col-sm-6 col-lg-4">
+                <div class="ratio glow" style="--bs-aspect-ratio: 125%;" id="canvas-wrapper"></div>
+            </div>
+            <div class="col d-none d-sm-block"></div>
+        </div>
+    </div>
+
+    <div class="position-absolute bottom-0 end-0 p-3 toast-container">
+        <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body text-white"></div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark p-1" style="background-color: #400080;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Slot Machine</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <button class="btn btn-sm btn-success me-2 my-1" id="savingsBtn">Savings: 0 coins</button>
+                <button class="btn btn-sm btn-info me-2 my-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#rules">Rules</button>
+                <button class="btn btn-sm btn-secondary me-2 my-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#jackpots">Jackpots</button>
+                <button class="btn btn-sm btn-primary me-2 my-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#statistics">Statistics</button>
+                <input type="checkbox" class="btn-check" id="mute" autocomplete="off" onclick="muteBtn()">
+                <label class="btn btn-sm btn-outline-light" for="mute">Mute</label>
+            </div>
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="rules">
+        <div class="offcanvas-header">
+            <h5>Rules</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">1.</th>
+                        <td>To play this game, you'll need 10 coins.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2.</th>
+                        <td>Three reels, each with ten different symbols, will spin at random.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3.</th>
+                        <td colspan="2">If the reels stop and you get all the same symbols, you win a different jackpot depending on the symbols.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="jackpots">
+        <div class="offcanvas-header">
+            <h5>Jackpots</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Symbols</th>
+                        <th scope="col">Jackpots</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>3 Lions</td>
+                        <td>1,000 coins</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>3 Cheetahs</td>
+                        <td>750 coins</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>3 Hyeenas</td>
+                        <td>500 coins</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>3 Hunters</td>
+                        <td>250 coins</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>3 Giraffes</td>
+                        <td>200 coins</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>3 Bulls</td>
+                        <td>100 coins</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>3 Rhinos</td>
+                        <td>80 coins</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>3 Elephants</td>
+                        <td>60 coins</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td>3 Crocodiles</td>
+                        <td>40 coins</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10</th>
+                        <td>3 Gazelles</td>
+                        <td>20 coins</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="statistics">
+        <div class="offcanvas-header">
+            <h5>Statistics</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <canvas id="chart" class="w-100 mb-4"></canvas>
+            <h5>How to calculate <span class="text-primary">Expected Value</span> on this slot machine</h5>
+            <p>If S is sample space then n(S)=10<sup>3</sup>=1000</p>
+            <p>Let X be the payout of the game</p>
+            <p>
+                <image class="img-fluid" src="mu1.svg"></image>
+            </p>
+            <p>Let P(X=x) be the probability of X which P(X=x)=n(X=x)/n(S)</p>
+            <p>
+                <image class="img-fluid" src="mu2.svg"></image>
+            </p>
+            <p>
+                <image class="img-fluid" src="mu3.svg"></image>
+            </p>
+            <p>Thus, if the game is played 1000 times,<br><span class="text-danger fw-bold">the person is expected to lose 7 coins</span></p>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="chart.js"></script>
+    <script src="slot-machine.js"></script>
+
+</body>
+
+</html>
